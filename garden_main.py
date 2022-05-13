@@ -23,15 +23,34 @@ def current_datetime():
     current_day = now.day
     print(now)
 
+def initialize_Fogger():
+    pass
+
+def fogger():
+    pass
+    time_On = 30 #seconds
+    time_Off = 30 #minutes
+    #next_Trigger =
+
+def pH_Control():
+    pass
+
+def nutrient_Dosing():
+    pass
+
 def main():
     while True:
+        current_datetime()
+        fogger()
+        pH_Control()
+        nutrient_Dosing()
+
         ser.write(b"on\n")
         print("on")
         time.sleep(3)
         ser.write(b"off\n")
         print("off")
         time.sleep(1)
-        current_datetime()
 
 if __name__ == "__main__":
     serial_setup()

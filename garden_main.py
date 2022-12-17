@@ -7,6 +7,7 @@ __license__ = "N/A"
 from datetime import datetime
 import serial
 import time
+import ndvi
 
 def serial_setup():
     global ser

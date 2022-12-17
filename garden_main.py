@@ -9,14 +9,11 @@ from datetime import datetime
 import time
 #import ndvi
 
-def initialize():
-    print("Setup")
-    global start_time
-    start_time = datetime.now()
-    print(start_time)
-    #global ser
-    #ser = serial.Serial('/dev/ttyACM0',9600, timeout=1)
-    #ser.flush()
+#Initialize
+print("Setup")
+start_time = datetime.now()
+#ser = serial.Serial('/dev/ttyACM0',9600, timeout=1)
+#ser.flush()
 
 def current_datetime():
     global now
@@ -27,7 +24,6 @@ def current_datetime():
     #current_year = now.year
     #current_month = now.month
     #current_day = now.day
-    print(now)
 
 def initialize_Fogger():
     pass
@@ -62,13 +58,15 @@ def nutrient_Dosing():
 
 def main():
     while True:
-        print(start_time)
         current_datetime()
         fogger()
         pH_Control()
         nutrient_Dosing()
         lights()
         
+        #Time
+        print(start_time)
+        print(now)
 
         #ser.write(b"on\n")
         #print("on")
@@ -78,5 +76,4 @@ def main():
         time.sleep(1)
 
 if __name__ == "__main__":
-    initialize()
     main()

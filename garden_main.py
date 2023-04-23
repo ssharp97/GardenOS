@@ -5,25 +5,26 @@ __version__ = "0.1.0"
 __license__ = "N/A"
 
 from datetime import datetime
-#import serial
 import time
+import RPi.GPIO as GPIO
 #import ndvi
 
+#GPIO Setup
+
+
 #Initialize
-print("Setup")
 start_time = datetime.now()
-#ser = serial.Serial('/dev/ttyACM0',9600, timeout=1)
-#ser.flush()
+print("Setup Complete...")
 
 def current_datetime():
     global now
     now = datetime.now()
-    #current_hour = now.hour
-    #current_minute = now.minute
-    #current_second = now.second
-    #current_year = now.year
-    #current_month = now.month
-    #current_day = now.day
+    current_hour = now.hour
+    current_minute = now.minute
+    current_second = now.second
+    current_year = now.year
+    current_month = now.month
+    current_day = now.day
 
 def initialize_Fogger():
     pass
@@ -36,19 +37,26 @@ def fogger():
     #next_Trigger = last_trigger + time_Off
 
 def lights():
+    GPIO.setmode(GPIO.BCM) 
+    pin_Light = 6
+    GPIO.setup(pin_Light, GPIO.OUT)
     current_datetime()
-    lights_on = 17
-    lights_off = 8
+    lights_on = 8
+    lights_off = 20
     if lights_off > lights_on:
         if now.hour >= lights_on and now.hour <= lights_off:
-            print("Lights ON!") 
+            #lights on 
+            GPIO.output(pin_Light, GPIO.LOW)
         else:
-            print("Lights OFF!")
+            #lights off
+            GPIO.output(pin_Light, GPIO.HIGH)
     else:
         if now.hour >= lights_on or now.hour <= lights_off:
-            print("Lights ON!") 
+            #lights on
+            pass
         else:
-            print("Lights OFF!")
+            #lights off
+            pass
 
 def pH_Control():
     pass
@@ -67,12 +75,7 @@ def main():
         #Time
         print(start_time)
         print(now)
-
-        #ser.write(b"on\n")
-        #print("on")
-        #time.sleep(3)
-        #ser.write(b"off\n")
-        #print("off")
+        GPIO.cleanup()
         time.sleep(1)
 
 if __name__ == "__main__":

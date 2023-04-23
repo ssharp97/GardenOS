@@ -9,7 +9,11 @@ import time
 import RPi.GPIO as GPIO
 #import ndvi
 
-#GPIO Setup
+#Global Variables
+global lights_on
+global lights_off
+lights_on = 8
+lights_off = 20
 
 
 #Initialize
@@ -40,23 +44,19 @@ def lights():
     GPIO.setmode(GPIO.BCM) 
     pin_Light = 6
     GPIO.setup(pin_Light, GPIO.OUT)
-    current_datetime()
-    lights_on = 8
-    lights_off = 20
+    current_datetime()    
     if lights_off > lights_on:
         if now.hour >= lights_on and now.hour <= lights_off:
-            #lights on 
+            
             GPIO.output(pin_Light, GPIO.LOW)
         else:
-            #lights off
+            
             GPIO.output(pin_Light, GPIO.HIGH)
     else:
         if now.hour >= lights_on or now.hour <= lights_off:
-            #lights on
-            pass
+            GPIO.output(pin_Light, GPIO.LOW)
         else:
-            #lights off
-            pass
+            GPIO.output(pin_Light, GPIO.HIGH)
 
 def pH_Control():
     pass
@@ -75,7 +75,6 @@ def main():
         #Time
         print(start_time)
         print(now)
-        GPIO.cleanup()
         time.sleep(1)
 
 if __name__ == "__main__":
